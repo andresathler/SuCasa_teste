@@ -13,11 +13,11 @@ datasource db {
 model User {
   id            Int         @default(autoincrement()) @id
   email         String      @unique
-  username      String
+  username      String      @unique
+  password      String
   name          String?
   role          Role
   property      Property?
-  staff         Staff?
 }
 
 model Property {
