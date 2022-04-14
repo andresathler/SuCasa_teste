@@ -4,12 +4,9 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { LoginValidationMiddleware } from './middlewares/login-validation.middleware';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-//import { JwtStrategy } from './strategies/jwt.strategy';
-//import { LocalStrategy } from './strategies/local.strategy';
-//import { LoginValidationMiddleware } from './middlewares/login-validation.middleware';
-
 @Module({
   imports: [
     UserModule,
@@ -24,6 +21,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    // throw new Error('Method not implemented.');
+    consumer.apply(LoginValidationMiddleware).forRoutes('login');
   }
 }
