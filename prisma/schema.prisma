@@ -11,36 +11,35 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid()) 
-  email         String         @unique
-  username      String         @unique
-  password      String
-  name          String?
-  role          Role
-  property      Property?
+  id       String    @id @default(uuid())
+  email    String    @unique
+  username String    @unique
+  password String
+  name     String?
+  role     Role
+  property Property?
 }
 
 model Property {
-  id            String         @id @default(uuid()) 
-  description   String
-  user          User           @relation(fields: [userId], references: [id])
-  userId        String
+  id          String @id @default(uuid())
+  description String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String @unique
 }
 
 model Staff {
-  id            String        @id @default(uuid()) 
-  name          String
-  numWorkers    Int?
+  id         String  @id @default(uuid())
+  name       String
+  numWorkers Int?
+  Event      Event[]
 }
 
 model Event {
-  id            String        @id @default(uuid())
-  staff         Staff         @relation(fields: [staffId], references: [id])
-  staffId       String
-  duration      Int
-  numGuests     Int
-  dateTime      String
-  payment       Payment
+  id        String  @id @default(uuid())
+  duration  Int
+  numGuests Int
+  dateTime  String
+  payment   Payment
 }
 
 enum Role {
