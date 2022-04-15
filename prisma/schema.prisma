@@ -17,15 +17,15 @@ model User {
   password    String
   name        String?
   role        Role
-  property    Property[]
-  event       Event[]
-  staff       Staff?    @relation(fields:[staffId], references: [id])
-  staffId     String?
+  // property    Property[]
+  // event       Event[]
+  // staff       Staff?    @relation(fields:[staffId], references: [id])
+  // staffId     String?
 }
 
 model Property {
   id            String  @id @default(uuid())
-  owner         User    @relation(fields: [ownerId], references: [id])
+  //owner         User    @relation(fields: [ownerId], references: [id])
   ownerId       String
   availability  DateTime
   description   String?
@@ -38,7 +38,7 @@ model Property {
 
 model Staff {
   id         String     @id @default(uuid())
-  worker     User[]         
+  //worker     User[]         
   price      Int 
   name       String     @unique
   numWorkers Int?
@@ -48,7 +48,7 @@ model Staff {
 model Event {
   id          String  @id @default(uuid())
   staff       Staff[]
-  promoter    User    @relation(fields: [promoterId], references: [id])
+  //promoter    User    @relation(fields: [promoterId], references: [id])
   promoterId  String
   property    Property @relation(fields: [propertyId], references: [id])
   propertyId  String
