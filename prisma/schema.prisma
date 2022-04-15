@@ -36,7 +36,7 @@ model Staff {
 model Event {
   id            String        @id @default(uuid())
   staff         Staff         @relation(fields: [staffId], references: [id])
-  staffid       String
+  staffId       String
   duration      Int
   numGuests     Int
   dateTime      String
