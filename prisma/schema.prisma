@@ -11,61 +11,61 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(uuid()) @unique
-  email       String    @unique
-  username    String    @unique
-  password    String
-  name        String?
-  role        Role
-  property    Property[]
-  event       Event[]
-  staff       Staff?    @relation(fields:[staffId], references: [id])
-  staffId     String?
+  id       String     @id @unique @default(uuid())
+  email    String     @unique
+  username String     @unique
+  password String
+  name     String?
+  role     Role
+  property Property[]
+  events    Events[]
+  staff    Staff?     @relation(fields: [staffId], references: [id])
+  staffId  String?
 }
 
 model Property {
-  id            String  @id @default(uuid()) @unique
-  owner         User    @relation(fields: [ownerId], references: [id])
-  ownerId       String
-  availability  DateTime
-  description   String?
-  price         Int
-  propertySize  Int
-  address       String  @unique()
-  event         Event[]
-  evaluation    Evaluation[]
+  id           String       @id @unique @default(uuid())
+  owner        User         @relation(fields: [ownerId], references: [id])
+  ownerId      String
+  availability DateTime
+  description  String?
+  price        Int
+  propertySize Int
+  address      String       @unique()
+  events        Events[]
+  evaluation   Evaluation[]
 }
 
 model Staff {
-  id         String     @id @default(uuid()) @unique
-  worker     User[]         
-  price      Int 
-  name       String     @unique
+  id         String   @id @unique @default(uuid())
+  worker     User[]
+  price      Int
+  name       String   @unique
   numWorkers Int?
-  Event      Event[]
+  events      Events[]
 }
 
-model Event {
-  id          String  @id @default(uuid()) @unique
-  staff       Staff[]
-  promoter    User    @relation(fields: [promoterId], references: [id])
-  promoterId  String
-  property    Property @relation(fields: [propertyId], references: [id])
-  propertyId  String
-  duration    Int
-  numGuests   Int
-  assignedAt  DateTime
-  payment     Payment
-  evaluation  Evaluation?
+model Events {
+  id         String      @id @unique @default(uuid())
+  staff      Staff[]
+  promoter   User        @relation(fields: [promoterId], references: [id])
+  promoterId String
+  property   Property    @relation(fields: [propertyId], references: [id])
+  propertyId String
+  duration   Int
+  numGuests  Int
+  assignedAt DateTime
+  payment    Payment
+  evaluation Evaluation?
 }
 
 model Evaluation {
-  id          String  @id @default(uuid()) @unique
-  event       Event   @relation(fields: [eventId], references: [id])  
-  eventId     String
-  property    Property @relation(fields: [propertyId],references:[id])
-  propertyId  String
-  grade       Int
+  id         String   @id @unique @default(uuid())
+  events      Events   @relation(fields: [eventsId], references: [id])
+  eventsId    String   @unique
+  property   Property @relation(fields: [propertyId], references: [id])
+  propertyId String
+  grade      Int
 }
 
 enum Role {

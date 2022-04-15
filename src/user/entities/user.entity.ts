@@ -6,4 +6,7 @@ export class User {
   password: string;
   name: string;
   role: Role;
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }
