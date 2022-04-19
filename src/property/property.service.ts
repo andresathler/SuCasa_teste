@@ -1,15 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
+import { GetProperty } from 'src/auth/decorators/get-property.decorator';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
+import { GetPropertyFilterDto } from './dto/get-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
+import { Property } from './entities/property.entity';
 
 @Injectable()
 export class PropertyService {
-  create(createPropertyDto: CreatePropertyDto) {
-    return 'This action adds a new property';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createPropertyDto: CreatePropertyDto) {
+    const Propertydata = createPropertyDto;
+
+    const createdProperty = await this.prisma.property.create({ Propertydata });
+
+    return createdProperty;
   }
 
-  findAll() {
-    return `This action returns all property`;
+  findAll(
+    filterDto: GetPropertyFilterDto,
+    property: Property,
+  ): Promise<Property[]> {
+    return this.prisma.property.findAll(filterDto, property);
   }
 
   findOne(id: number) {
