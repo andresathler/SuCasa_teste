@@ -1,3 +1,5 @@
+import { User } from '@prisma/client';
+
 export class Property {
   id?: string;
   ownerId?: string;
@@ -6,4 +8,5 @@ export class Property {
   price: number;
   address: string;
   propertySize: number;
+  owner?: User;
 }

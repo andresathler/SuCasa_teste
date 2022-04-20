@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   Logger,
+  UseGuards,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
@@ -15,6 +16,10 @@ import { UpdatePropertyDto } from './dto/update-property.dto';
 import { GetPropertyFilterDto } from './dto/get-property.dto';
 import { Property } from './entities/property.entity';
 import { GetProperty } from 'src/auth/decorators/get-property.decorator';
+import { UserService } from 'src/user/user.service';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/user/entities/user.entity';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
 
 @Controller('property')
 export class PropertyController {
@@ -22,16 +27,13 @@ export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
   @Post()
-  create(@Body() createPropertyDto: CreatePropertyDto) {
-    return this.propertyService.create(createPropertyDto);
+  create(@Body() createPropertyDto: CreatePropertyDto, @GetUser() owner: User) {
+    return this.propertyService.create(createPropertyDto, owner);
   }
 
   @Get()
-  findAll(
-    @Query() filterDto: GetPropertyFilterDto,
-    @GetProperty() user: Property,
-  ): Promise<Property[]> {
-    return this.propertyService.findAll(filterDto, user);
+  findAll() {
+    return 'this.propertyService.findAll(filterDto, property)';
   }
 
   @Get(':id')

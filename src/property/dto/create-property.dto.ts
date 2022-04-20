@@ -1,12 +1,6 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreatePropertyDto {
-  @IsString()
-  ownerId: string;
-
-  @IsDate()
-  availability: Date;
-
   @IsString()
   description: string;
 

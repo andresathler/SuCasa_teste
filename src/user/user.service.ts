@@ -3,9 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { User } from './entities/user.entity';
-import { Prisma, Role } from '@prisma/client';
-import { GetUserFilterDto } from './dto/get-user-filter.dto';
-import { throws } from 'assert';
+import { Prisma, Property, Role } from '@prisma/client';
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
